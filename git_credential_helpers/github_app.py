@@ -10,6 +10,7 @@ with private repos that have the GitHub app installed.
 import github3
 import sys
 import argparse
+import re
 
 def main():
     argparser = argparse.ArgumentParser()
@@ -51,6 +52,11 @@ def main():
     # Password for cloning a repo is based on the organization / user that
     # has installed the GitHub app.
     user, repo = keys['path'].split('/', 1)
+
+    # git clone URL might have a '.git' in it. The GitHub apps API doesn't
+    # recognize it as part of the repo name. Since we're making API requests,
+    # we should strip this too.
+    repo = re.sub(r'\.git$', '', repo)
 
     # Authenticate to GitHub as our App, using the private RSA key & identifier
     gh = github3.github.GitHub()
