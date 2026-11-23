@@ -22,8 +22,7 @@ def main():
     )
     argparser.add_argument(
         '--app-id',
-        help='GitHub app id',
-        type=int,
+        help='Numerical GitHub app id',
         required=True
     )
     argparser.add_argument(
